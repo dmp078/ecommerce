@@ -9,15 +9,10 @@ const ViewCategory = () => {
   const { id } = useParams();
   const { listCate, search, searchResults } = GetAPI();
 
-  useEffect(
-    () => {
+  useEffect(() => {
       search(listCate[id]?.categories[0].name);
-    },
-    [listCate[id]?.categories[0].name],
-    id
-  );
+  }, [listCate[id]?.categories[0].name], id);
 
-  console.log(searchResults);
 
   return (
     <div>

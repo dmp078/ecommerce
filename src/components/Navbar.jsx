@@ -1,8 +1,8 @@
 import React from "react";
-import { useEffect } from "react";
 import { useState } from "react";
-import { GetAPI } from "../APIContext";
 import { Link, useNavigate } from "react-router-dom";
+import { GetAddContext } from "../AddContext";
+import {GetAPI} from '../APIContext'
 
 const Navbar = () => {
   const [querySearch, setQuerySearch] = useState("");
@@ -10,6 +10,8 @@ const Navbar = () => {
   const [isMenu, setIsMenu] = useState(false);
   const { listCate } = GetAPI();
   const navigate = useNavigate();
+
+  const {numberBag, numberFavorite,} = GetAddContext();
 
   const handleSubmitSearch = () => {
     navigate(`/view-search/${querySearch}`);
@@ -51,9 +53,9 @@ const Navbar = () => {
             </div>
           )}
 
-          <a href="/" className="text-white my-auto text-3xl font-bold ml-4">
+          <Link to="/category/0" className="text-white my-auto text-3xl font-bold ml-4">
             SHOP
-          </a>
+          </Link>
         </div>
 
         {/* Right */}
@@ -63,8 +65,19 @@ const Navbar = () => {
               onClick={() => setIsSearch(true)}
               className="md:hidden fa-solid fa-magnifying-glass text-white text-2xl my-auto mr-6"
             />
-            <i className="fa-regular fa-heart text-white text-2xl my-auto mr-6" />
-            <i className="fa-sharp fa-solid fa-bag-shopping text-white text-2xl my-auto" />
+            <div className="my-auto mx-6 relative">
+              <i className="fa-regular fa-heart text-white text-2xl " />
+              <div className="w-6 h-6 text-sm font-bold absolute top-0 left-3 rounded-full bg-slate-700 text-center text-white">
+                {numberFavorite}
+              </div>
+            </div>
+
+            <div className="my-auto mx-6 relative">
+              <i className="fa-sharp fa-solid fa-bag-shopping text-white text-2xl" />
+              <div className="w-6 h-6 font-bold text-sm absolute top-0 left-3 rounded-full bg-slate-700 text-center text-white">
+                {numberBag}
+              </div>
+            </div>
           </div>
 
           <div className="mx-auto hidden md:block">

@@ -3,7 +3,7 @@ import { useContext } from "react";
 
 const APIContext = createContext();
 
-export function APIProvider({ child }) {
+export function APIProvider({ children }) {
   const [listCate, setListCate] = useState([]);
   const [searchResults, setSearchResults] = useState({});
   const [detail, setDetail] = useState({});
@@ -13,14 +13,17 @@ export function APIProvider({ child }) {
     const options = {
       method: "GET",
       headers: {
-        "X-RapidAPI-Key": "969555acb7msha8f2c4ec3e22775p1c0db1jsn456c6e48605c",
+        "X-RapidAPI-Key": "5e171997e4mshbe5a7bdb9c3c0dcp15b8f9jsn60e58ea73",
         "X-RapidAPI-Host": "kohls.p.rapidapi.com",
       },
     };
 
     fetch("https://kohls.p.rapidapi.com/categories/list", options)
       .then((response) => response.json())
-      .then((response) => setListCate(response.payload.categories))
+      .then((response) => {
+        setListCate(response.payload.categories)
+        console.log(response);
+      })
       .catch((err) => console.error(err));
   }, []);
 
@@ -28,7 +31,7 @@ export function APIProvider({ child }) {
     const options = {
       method: "GET",
       headers: {
-        "X-RapidAPI-Key": "969555acb7msha8f2c4ec3e22775p1c0db1jsn456c6e48605c",
+        "X-RapidAPI-Key": "5e171997e4mshbe5a7bdb9c3c0dcp15b8f9jsn60e58ea73",
         "X-RapidAPI-Host": "kohls.p.rapidapi.com",
       },
     };
@@ -48,7 +51,7 @@ export function APIProvider({ child }) {
     const options = {
       method: "GET",
       headers: {
-        "X-RapidAPI-Key": "969555acb7msha8f2c4ec3e22775p1c0db1jsn456c6e48605c",
+        "X-RapidAPI-Key": "5e171997e4mshbe5a7bdb9c3c0dcp15b8f9jsn60e58ea73",
         "X-RapidAPI-Host": "kohls.p.rapidapi.com",
       },
     };
@@ -63,7 +66,7 @@ export function APIProvider({ child }) {
     const options = {
       method: "GET",
       headers: {
-        "X-RapidAPI-Key": "969555acb7msha8f2c4ec3e22775p1c0db1jsn456c6e48605c",
+        "X-RapidAPI-Key": "5e171997e4mshbe5a7bdb9c3c0dcp15b8f9jsn60e58ea73",
         "X-RapidAPI-Host": "kohls.p.rapidapi.com",
       },
     };
@@ -89,7 +92,7 @@ export function APIProvider({ child }) {
         qnaProduct,
       }}
     >
-      {child}
+      {children}
     </APIContext.Provider>
   );
 }

@@ -1,4 +1,5 @@
 import React from "react";
+import { memo } from "react";
 import { useState, useEffect } from "react";
 
 const UseDebounce = (value, delay) => {

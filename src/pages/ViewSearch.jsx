@@ -13,8 +13,6 @@ const ViewSearch = () => {
     search(query);
   }, [query]);
 
-  console.log(searchResults);
-
   return (
     <div>
       <div className="bg-[#f8f8f8] mt-12 text-center py-4 font-black text-lg md:text-3xl border-2 border-slate-200">

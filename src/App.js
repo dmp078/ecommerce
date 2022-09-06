@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import ViewCategory from "./pages/ViewCategory";
 import DetailProduct from "./pages/DetailProduct";
