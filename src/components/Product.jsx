@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import React from "react";
 import { useState } from "react";
 import { GetAddContext } from "../AddContext";
+import { useEffect } from "react";
 
 const Product = ({ data }) => {
 
@@ -37,7 +38,7 @@ const Product = ({ data }) => {
               <i
                 onClick={() => {
                   handleRemoveFavorite(data);
-                  setIsFavorite(false);
+                  // setIsFavorite(false);
                 }}
                 className="fa-solid fa-heart cursor-pointer"
               ></i>
@@ -46,7 +47,7 @@ const Product = ({ data }) => {
               <i
                 onClick={() => {
                   handleAddFavorite(data);
-                  setIsFavorite(true)
+                  // setIsFavorite(true)
                 }}
                 className="fa-regular fa-heart cursor-pointer"
               ></i>

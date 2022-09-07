@@ -7,7 +7,7 @@ import { AddProvider } from "./AddContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(<AddProvider>
-  <APIProvider>
-    <App />
-  </APIProvider>
-</AddProvider>);
+              <APIProvider>
+                <App />
+              </APIProvider>
+            </AddProvider>);

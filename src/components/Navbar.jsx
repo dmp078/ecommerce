@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { GetAddContext } from "../AddContext";
 import {GetAPI} from '../APIContext'
+import ThumnailView from "./ThumnailView";
 
 const Navbar = () => {
   const [querySearch, setQuerySearch] = useState("");
@@ -69,6 +70,9 @@ const Navbar = () => {
               <i className="fa-regular fa-heart text-white text-2xl " />
               <div className="w-6 h-6 text-sm font-bold absolute top-0 left-3 rounded-full bg-slate-700 text-center text-white">
                 {numberFavorite}
+              </div>
+              <div className="absolute right-[-12px]">
+                <ThumnailView data={window.localStorage.getItem('favorite') ? JSON.parse(window.localStorage.getItem('favorite')) : {}} />
               </div>
             </div>
 

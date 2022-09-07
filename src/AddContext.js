@@ -1,9 +1,10 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
 import { useContext } from "react";
 
 const AddContext = createContext()
 
 export const AddProvider = ({ children }) => {
+
 
   const [numberBag, setNumberBag] = useState(window.localStorage.getItem('bag') ? Object.keys(JSON.parse(window.localStorage.getItem('bag'))).length : 0)
   const [numberFavorite, setNumberFavorite] = useState(window.localStorage.getItem('favorite') ? Object.keys(JSON.parse(window.localStorage.getItem('favorite'))).length : 0)
@@ -15,7 +16,7 @@ export const AddProvider = ({ children }) => {
     }
     if (!exist) {
       let obj = JSON.parse(window.localStorage.getItem('bag'));
-      obj = { ...obj, [data.webID]: { img: data.image.url, title: data.productTitle, price: data.prices[0].regularPrice.minPrice } };
+      obj = { ...obj, [data.webID]: {webID: data.webID, count:1, img: data.image.url, title: data.productTitle, price: data.prices[0].regularPrice.minPrice } };
 
       window.localStorage.setItem('bag', JSON.stringify(obj));
       setNumberBag(prev => prev + 1)
@@ -32,7 +33,7 @@ export const AddProvider = ({ children }) => {
 
   const handleAddFavorite = (data) => {
     let obj = window.localStorage.getItem('favorite') ? JSON.parse(window.localStorage.getItem('favorite')) : {}
-    obj = { ...obj, [data.webID]: { img: data.image.url, title: data.productTitle, price: data.prices[0].regularPrice.minPrice } };
+    obj = { ...obj, [data.webID]: {webID: data.webID, img: data.image.url, title: data.productTitle, price: data.prices[0].regularPrice.minPrice } };
 
     window.localStorage.setItem('favorite', JSON.stringify(obj));
     setNumberFavorite(prev => prev + 1)

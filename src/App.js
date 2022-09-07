@@ -5,6 +5,7 @@ import DetailProduct from "./pages/DetailProduct";
 import ViewSearch from "./pages/ViewSearch";
 
 function App() {
+  
   return (
     <BrowserRouter>
       <Routes>
