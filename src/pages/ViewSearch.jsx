@@ -4,10 +4,13 @@ import { useParams } from "react-router-dom";
 import { GetAPI } from "../APIContext";
 import Navbar from "../components/Navbar";
 import Product from "../components/Product";
+import Footer from '../components/Footer';
+import { GetAddContext } from "../AddContext";
 
 const ViewSearch = () => {
   const { query } = useParams();
   const { searchResults, search } = GetAPI();
+  const {numberFavorite} = GetAddContext();
 
   useEffect(() => {
     search(query);
@@ -79,10 +82,12 @@ const ViewSearch = () => {
       {searchResults.count > 0 && (
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5 gap-4 md:gap-6 xl:gap-8 w-fit mx-auto px-8">
           {searchResults?.payload?.products?.map((obj, id) => (
-            <Product key={id} data={obj} />
+            <Product key={id} data={obj} isFavorite={window.localStorage.getItem('favorite') ? JSON.parse(window.localStorage.getItem('favorite'))[obj.webID] : false} />
           ))}
         </div>
       )}
+
+      <Footer />
       <Navbar />
     </div>
   );

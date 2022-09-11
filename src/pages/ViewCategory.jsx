@@ -4,10 +4,13 @@ import Navbar from "../components/Navbar";
 import Product from "../components/Product";
 import { GetAPI } from "../APIContext";
 import { useEffect } from "react";
+import { GetAddContext } from "../AddContext";
+import Footer from '../components/Footer';
 
 const ViewCategory = () => {
   const { id } = useParams();
   const { listCate, search, searchResults } = GetAPI();
+  const {numberFavorite} = GetAddContext();
 
   useEffect(() => {
       search(listCate[id]?.categories[0].name);
@@ -92,11 +95,12 @@ const ViewCategory = () => {
 
         <div className="grid col-span-2 lg:col-span-3 2xl:col-span-4 w-fit grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 px-4 mx-auto gap-4 lg:gap-x-8">
           {searchResults?.payload?.products?.map((obj, id) => (
-            <Product key={id} data={obj} />
+            <Product key={id} data={obj} isFavorite={window.localStorage.getItem('favorite') ? JSON.parse(window.localStorage.getItem('favorite'))[obj.webID] : false} />
           ))}
         </div>
       </div>
 
+      <Footer />
       <Navbar />
     </div>
   );

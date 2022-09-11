@@ -13,7 +13,7 @@ export function APIProvider({ children }) {
     const options = {
       method: "GET",
       headers: {
-        "X-RapidAPI-Key": "5e171997e4mshbe5a7bdb9c3c0dcp15b8f9jsn60e58ea73219",
+        "X-RapidAPI-Key": "6e4d4e718emshfa56da9ad57c17ep13864cjsn5c21ea970c5e",
         "X-RapidAPI-Host": "kohls.p.rapidapi.com",
       },
     };
@@ -28,7 +28,7 @@ export function APIProvider({ children }) {
     const options = {
       method: "GET",
       headers: {
-        "X-RapidAPI-Key": "5e171997e4mshbe5a7bdb9c3c0dcp15b8f9jsn60e58ea73219",
+        "X-RapidAPI-Key": "6e4d4e718emshfa56da9ad57c17ep13864cjsn5c21ea970c5e",
         "X-RapidAPI-Host": "kohls.p.rapidapi.com",
       },
     };
@@ -48,7 +48,7 @@ export function APIProvider({ children }) {
     const options = {
       method: "GET",
       headers: {
-        "X-RapidAPI-Key": "5e171997e4mshbe5a7bdb9c3c0dcp15b8f9jsn60e58ea73219",
+        "X-RapidAPI-Key": "6e4d4e718emshfa56da9ad57c17ep13864cjsn5c21ea970c5e",
         "X-RapidAPI-Host": "kohls.p.rapidapi.com",
       },
     };
@@ -63,7 +63,7 @@ export function APIProvider({ children }) {
     const options = {
       method: "GET",
       headers: {
-        "X-RapidAPI-Key": "5e171997e4mshbe5a7bdb9c3c0dcp15b8f9jsn60e58ea73219",
+        "X-RapidAPI-Key": "6e4d4e718emshfa56da9ad57c17ep13864cjsn5c21ea970c5e",
         "X-RapidAPI-Host": "kohls.p.rapidapi.com",
       },
     };

@@ -1,14 +1,10 @@
 import { Link } from "react-router-dom";
-import React from "react";
-import { useState } from "react";
+import React, { memo } from "react";
 import { GetAddContext } from "../AddContext";
-import { useEffect } from "react";
 
-const Product = ({ data }) => {
+const Product = ({ data, isFavorite }) => {
 
-  const [isFavorite, setIsFavorite] = useState(window.localStorage.getItem('favorite') ? JSON.parse(window.localStorage.getItem('favorite'))[data.webID] : false);
-
-  const {handleAddBag, handleAddFavorite, handleRemoveFavorite} = GetAddContext();
+  const {handleAddBag, handleAddFavorite, handleRemoveFavorite, handleCalcCost} = GetAddContext();
 
   return (
     <>
@@ -27,7 +23,8 @@ const Product = ({ data }) => {
           <div className=" py-2 bg-white">
             <i
               onClick={() => {
-                handleAddBag(data);
+                handleAddBag(data, 1);
+                handleCalcCost();
               }}
               className="fa-solid fa-cart-shopping cursor-pointer"
             ></i>
@@ -38,7 +35,6 @@ const Product = ({ data }) => {
               <i
                 onClick={() => {
                   handleRemoveFavorite(data);
-                  // setIsFavorite(false);
                 }}
                 className="fa-solid fa-heart cursor-pointer"
               ></i>
@@ -47,7 +43,6 @@ const Product = ({ data }) => {
               <i
                 onClick={() => {
                   handleAddFavorite(data);
-                  // setIsFavorite(true)
                 }}
                 className="fa-regular fa-heart cursor-pointer"
               ></i>
@@ -62,4 +57,4 @@ const Product = ({ data }) => {
   );
 };
 
-export default Product;
+export default memo(Product);

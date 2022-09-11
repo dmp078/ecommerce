@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useRef } from "react";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { GetAddContext } from "../AddContext";
@@ -9,15 +10,39 @@ const Navbar = () => {
   const [querySearch, setQuerySearch] = useState("");
   const [isSearch, setIsSearch] = useState(false);
   const [isMenu, setIsMenu] = useState(false);
+
+  const refFavorite = useRef(null);
+  const refBag = useRef(null);
+
+
   const { listCate } = GetAPI();
   const navigate = useNavigate();
 
-  const {numberBag, numberFavorite,} = GetAddContext();
+  const {numberBag, numberFavorite} = GetAddContext();
 
   const handleSubmitSearch = () => {
     navigate(`/view-search/${querySearch}`);
     setIsSearch(false);
   };
+
+  const HandleOutside = (ref) => {
+    useEffect(() => {
+      const Handler = (e) => {
+        if (ref.current && !ref.current.contains(e.target)) {
+          ref.current.style.display = 'none';
+        }
+      }
+
+      window.addEventListener('mousedown', Handler);
+
+      return () => {
+        window.removeEventListener('mousedown', Handler);
+      }
+    }, [])
+  }
+
+  HandleOutside(refFavorite);
+  HandleOutside(refBag);
 
   return (
     <>
@@ -30,7 +55,7 @@ const Navbar = () => {
           ></i>
 
           {isMenu && (
-            <div className="bg-[#eee] w-[100vw] h-full fixed inset-0  md:hidden">
+            <div className="bg-[#eee] w-[100vw] h-screen -translate-x-10 relative  md:hidden">
               <i
                 onClick={() => setIsMenu(false)}
                 className="cursor-pointer fa-solid fa-window-close text-black text-2xl fixed top-4 right-4"
@@ -64,24 +89,31 @@ const Navbar = () => {
           <div className="flex">
             <i
               onClick={() => setIsSearch(true)}
-              className="md:hidden fa-solid fa-magnifying-glass text-white text-2xl my-auto mr-6"
+              className="md:hidden fa-solid fa-magnifying-glass text-white text-2xl my-auto mr-3"
             />
-            <div className="my-auto mx-6 relative">
-              <i className="fa-regular fa-heart text-white text-2xl " />
-              <div className="w-6 h-6 text-sm font-bold absolute top-0 left-3 rounded-full bg-slate-700 text-center text-white">
+
+            <div className="my-auto mx-3 relative">
+              <i onClick = {() => {refFavorite.current.style.display = 'block'}} className="fa-regular fa-heart text-white text-2xl cursor-pointer" />
+              <div onClick = {() => {refFavorite.current.style.display = 'block'}} className="w-6 h-6 cursor-pointer text-sm font-bold absolute top-0 left-3 rounded-full bg-slate-700 text-center text-white">
                 {numberFavorite}
               </div>
-              <div className="absolute right-[-12px]">
-                <ThumnailView data={window.localStorage.getItem('favorite') ? JSON.parse(window.localStorage.getItem('favorite')) : {}} />
+              
+              <div ref={refFavorite} className="absolute right-[-12px] hidden">
+                <ThumnailView type={'favorite'} data={window.localStorage.getItem('favorite') ? JSON.parse(window.localStorage.getItem('favorite')) : {}} />
               </div>
             </div>
 
-            <div className="my-auto mx-6 relative">
-              <i className="fa-sharp fa-solid fa-bag-shopping text-white text-2xl" />
-              <div className="w-6 h-6 font-bold text-sm absolute top-0 left-3 rounded-full bg-slate-700 text-center text-white">
+            <div className="my-auto mx-3 relative">
+              <i onClick = {() => {refBag.current.style.display = 'block'}} className="fa-sharp fa-solid fa-bag-shopping text-white text-2xl cursor-pointer" />
+              <div onClick = {() => {refBag.current.style.display = 'block'}} className="w-6 h-6 cursor-pointer font-bold text-sm absolute top-0 left-3 rounded-full bg-slate-700 text-center text-white">
                 {numberBag}
               </div>
+
+              <div ref={refBag} className="absolute right-[-12px] hidden">
+                <ThumnailView type={'bag'} data={window.localStorage.getItem('bag') ? JSON.parse(window.localStorage.getItem('bag')) : {}} />
+              </div>
             </div>
+
           </div>
 
           <div className="mx-auto hidden md:block">

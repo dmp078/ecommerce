@@ -3,18 +3,20 @@ import { useParams } from "react-router-dom";
 import { useEffect } from "react";
 import Navbar from "../components/Navbar";
 import { GetAPI } from "../APIContext";
+import { GetAddContext } from "../AddContext";
+import Footer from '../components/Footer';
 
 const DetailProduct = () => {
   const { id } = useParams();
   const [imgPicked, setImgPicked] = useState(0);
+  const [number, setNumber] = useState(1);
   const { detail, qnaProduct, getDetailProduct, getQnaProduct } = GetAPI();
+  const {handleAddBag, handleCalcCost} = GetAddContext();
 
   useEffect(() => {
     getDetailProduct(id);
     getQnaProduct(id);
   }, [id]);
-
-  console.log(detail);
 
   return (
     <div>
@@ -25,7 +27,7 @@ const DetailProduct = () => {
 
         <div className="w-[1000px] max-w-[90%] h-[1px] bg-black mx-auto mb-12" />
 
-        <div className="flex flex-col md:justify-between md:flex-row max-w-[675px] lg:max-w-[1000px] 2xl:max-w-[1300px] px-2 md:px-4 mx-auto">
+        <div className="flex flex-col md:justify-between md:flex-row max-w-[85%] mx-auto">
           <img
             className="w-full md:hidden"
             src={`${detail?.payload?.products[0]?.altImages[0].url}`}
@@ -40,30 +42,30 @@ const DetailProduct = () => {
               alt=""
             />
 
-            <img
+            {detail?.payload?.products[0]?.altImages[1] && <img
               onClick={() => setImgPicked(1)}
               src={`${detail?.payload?.products[0]?.altImages[1].url}`}
               className="w-full h-[60px] object-fit object-center my-4"
               alt=""
-            />
+            />}
 
-            <img
+            {detail?.payload?.products[0]?.altImages[2] && <img
               onClick={() => setImgPicked(2)}
               src={`${detail?.payload?.products[0]?.altImages[2].url}`}
               className="w-full h-[60px] object-fit object-center my-4"
               alt=""
-            />
+            />}
 
-            <img
+            {detail?.payload?.products[0]?.altImages[3] && <img
               onClick={() => setImgPicked(3)}
               src={`${detail?.payload?.products[0]?.altImages[3].url}`}
               className="w-full h-[60px] object-fit object-center my-4"
               alt=""
-            />
+            />}
           </div>
-          <div className="w-full">
+          <div className="w-full  mx-4">
             <img
-              className="w-full h-full object-cover object-center hidden md:block"
+              className="h-full mx-auto object-cover object-center hidden md:block"
               src={`${detail?.payload?.products[0]?.altImages[imgPicked].url}`}
               alt=""
             />
@@ -86,14 +88,18 @@ const DetailProduct = () => {
               </div>
             </div>
 
-            <div className="flex justify-between mt-12 mb-4">
-              <div className="w-[80%] py-2 bg-[#018849] text-center text-white font-bold">
-                ADD TO BAG
+              <div className="mt-6 grid grid-cols-3 font-bold w-fit mx-auto">
+                <button onClick={() => setNumber(e => (e - 1 ? e - 1 : 1))} className="w-6 h-6 bg-slate-600 text-white mr-2">-</button>
+                <h1 className="w-fit mx-auto text-center">{number}</h1>
+                <button onClick={() => setNumber(prev => prev + 1)} className="w-6 h-6 bg-slate-600 text-white ml-2">+</button>
               </div>
 
-              {/* <i className="fa-solid fa-heart my-auto"></i> */}
-              <i className="fa-regular fa-heart my-auto"></i>
-            </div>
+              <div onClick={() => {
+                handleAddBag(detail?.payload?.products[0], number);
+                handleCalcCost();
+              }} className="w-[80%] cursor-pointer mt-4 mb-8 hover:bg-green-800 mx-auto py-2 bg-[#018849] text-center text-white font-bold">
+                ADD TO BAG
+              </div>
 
             <div className="border-2 border-slate-300 py-4 px-4">
               <div className="flex flex-row">
@@ -121,6 +127,7 @@ const DetailProduct = () => {
         <div className="w-[1000px] max-w-[90%] h-[1px] bg-black mx-auto my-12" />
       </div>
       <div className="w-fit mx-auto px-4">
+        <h1 className="text-red-500 font-bold text-2xl">Comment:</h1>
         {qnaProduct?.payload?.TotalResults > 0 &&
           qnaProduct?.payload?.Results.map((obj, id) => (
             <div className="my-4" key={id}>
@@ -130,6 +137,7 @@ const DetailProduct = () => {
             </div>
           ))}
       </div>
+      <Footer /> 
       <Navbar />
     </div>
   );
